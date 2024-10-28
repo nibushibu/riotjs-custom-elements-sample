@@ -1,0 +1,30 @@
+<raw-html>
+  <span data-ref="content" onclick="{change}">text</span>
+
+  <script>
+    export default function RawHtml() {
+      return {
+        observedAttributes: ['data-html'],
+        state: {
+          message: ''
+        },
+        setContent() {
+          // Since this.$() and this.$$() don't seem to work when compiling with @riotjs/custom-elements.
+          // I use this.root.shadow.querySelector().
+          this.root.shadow.querySelector('[data-ref="content"]').innerHTML =
+            String(this.props.dataHtml) + this.state.message
+        },
+        onMounted() {
+          // Trying to reference inside shadowDOM in onMounted will result in an error.
+          this.setContent()
+        },
+        onUpdated() {
+          this.setContent()
+        },
+        change() {
+          this.update({ message: ' clicked' })
+        }
+      }
+    }
+  </script>
+</raw-html>
