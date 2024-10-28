@@ -1,4 +1,4 @@
-# Riot.js
+# Riot.js Custom Elements Sample
 
 ## How to run
 
